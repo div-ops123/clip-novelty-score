@@ -216,3 +216,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# clip-novelty-score: downloaded/generated video data (reproducible from committed manifests)
+data/raw/*
+!data/raw/.gitkeep
+data/augmented/*
+!data/augmented/.gitkeep
+data/inspection/*
+!data/inspection/.gitkeep

@@ -1,0 +1,6 @@
+requests==2.34.2
+python-dotenv==1.2.3
+opencv-python==5.0.0.93
+numpy==2.4.6
+pandas==3.0.5
+tqdm==4.70.0

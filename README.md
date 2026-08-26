@@ -21,4 +21,6 @@ Design reasoning and tradeoffs considered along the way: [`docs/JOURNAL.md`](doc
 
 - `docs/PROBLEM.md` — precise problem definition and scope boundaries
 - `docs/JOURNAL.md` — the reasoning trail behind each design decision
+- `docs/DATA_CONSTRUCTION.md` — how the validation dataset (`data/manifest.csv`) was built, and why
+- `scripts/` — the dataset construction pipeline (download → partition → augment → build manifest → verify)
 - *(score computation and validation experiment — in progress)*

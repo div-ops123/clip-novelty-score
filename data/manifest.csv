@@ -1,0 +1,35 @@
+clip_id,partner_id,arrival_index,source_original_id,is_synthetic_duplicate,local_path,pexels_id,search_term,source_url,augmentation_type
+A01,partner_a,1,A01,False,data/raw/30283098.mp4,30283098,pov assembly,https://www.pexels.com/video/motorcycle-engine-part-assembly-line-30283098/,
+A02,partner_a,2,A02,False,data/raw/30075961.mp4,30075961,pov assembly,https://www.pexels.com/video/efficient-motorcycle-engine-assembly-process-30075961/,
+A03,partner_a,3,A03,False,data/raw/7006120.mp4,7006120,pov mechanic,https://www.pexels.com/video/a-mechanic-woman-and-a-man-assisting-her-7006120/,
+A04,partner_a,4,A04,False,data/raw/5176975.mp4,5176975,pov gardening,https://www.pexels.com/video/a-person-using-lawn-mower-5176975/,
+A05,partner_a,5,A05,False,data/raw/1191928.mp4,1191928,pov cleaning,https://www.pexels.com/video/man-cleaning-a-comfort-romm-1191928/,
+A06,partner_a,6,A06,False,data/raw/8477806.mp4,8477806,first person cooking,https://www.pexels.com/video/man-putting-the-flour-in-a-strainer-8477806/,
+A07,partner_a,7,A07,False,data/raw/4912636.mp4,4912636,first person cooking,https://www.pexels.com/video/person-pouring-an-olive-oil-in-the-frying-pan-4912636/,
+A08,partner_a,8,A08,False,data/raw/8469674.mp4,8469674,pov mechanic,https://www.pexels.com/video/person-repairing-a-car-engine-8469674/,
+A09,partner_a,9,A09,False,data/raw/5972626.mp4,5972626,pov woodworking,https://www.pexels.com/video/a-man-shaving-a-wood-using-a-hand-plane-5972626/,
+A10,partner_a,10,A10,False,data/raw/8470302.mp4,8470302,pov mechanic,https://www.pexels.com/video/man-working-with-car-engine-8470302/,
+A11,partner_a,11,A11,False,data/raw/6711918.mp4,6711918,pov cleaning,https://www.pexels.com/video/person-walking-down-the-stairs-6711918/,
+A12,partner_a,12,A12,False,data/raw/5972111.mp4,5972111,pov woodworking,https://www.pexels.com/video/a-man-using-a-wood-planer-machine-5972111/,
+A13,partner_a,13,A13,False,data/raw/29351001.mp4,29351001,pov assembly,https://www.pexels.com/video/worker-assembling-motorcycle-engines-in-factory-29351001/,
+A14,partner_a,14,A14,False,data/raw/5972642.mp4,5972642,pov woodworking,https://www.pexels.com/video/a-man-working-on-wood-5972642/,
+A15,partner_a,15,A15,False,data/raw/5592510.mp4,5592510,pov cleaning,https://www.pexels.com/video/man-wearing-an-apron-twisting-a-mop-5592510/,
+A16,partner_a,16,A16,False,data/raw/15291653.mp4,15291653,pov hands tool,https://www.pexels.com/video/person-driving-on-the-narrow-road-under-the-cloudy-sky-15291653/,
+A17,partner_a,17,A17,False,data/raw/6789566.mp4,6789566,pov woodworking,https://www.pexels.com/video/a-person-removing-wood-dust-6789566/,
+A18,partner_a,18,A18,False,data/raw/5176974.mp4,5176974,pov hands tool,https://www.pexels.com/video/person-using-a-lawn-mower-5176974/,
+B01,partner_b,1,B01,False,data/raw/30288954.mp4,30288954,pov assembly,https://www.pexels.com/video/efficient-motorcycle-engine-assembly-process-30288954/,
+B02,partner_b,2,B02,False,data/raw/34913017.mp4,34913017,pov cleaning,https://www.pexels.com/video/walking-on-urban-sidewalk-in-casual-pants-34913017/,
+B03,partner_b,3,B03,False,data/raw/4912632.mp4,4912632,first person cooking,https://www.pexels.com/video/person-pouring-an-olive-oil-in-the-frying-pan-4912632/,
+B04,partner_b,4,B04,False,data/raw/7655144.mp4,7655144,pov gardening,https://www.pexels.com/video/person-tying-a-string-to-a-newly-planted-tree-7655144/,
+B05,partner_b,5,B05,False,data/raw/7084637.mp4,7084637,first person cooking,https://www.pexels.com/video/person-eating-slices-of-cucumber-7084637/,
+B06,partner_b,6,B06,False,data/raw/19535589.mp4,19535589,pov mechanic,https://www.pexels.com/video/pov-dive-under-off-road-beast-19535589/,
+B07,partner_b,7,B07,False,data/raw/37019468.mp4,37019468,pov gardening,https://www.pexels.com/video/gardener-digging-in-the-garden-patch-37019468/,
+B08,partner_b,8,B08,False,data/raw/28840193.mp4,28840193,pov hands tool,https://www.pexels.com/video/capturing-moment-with-professional-camera-setup-28840193/,
+B09,partner_b,9,B09,False,data/raw/7325847.mp4,7325847,pov hands tool,https://www.pexels.com/video/person-using-handheld-castanets-7325847/,
+B10,partner_b,10,B01,True,data/augmented/B_dup01_crop.mp4,,,,crop
+B11,partner_b,11,B01,True,data/augmented/B_dup02_brightness.mp4,,,,brightness
+B12,partner_b,12,B01,True,data/augmented/B_dup03_flip.mp4,,,,flip
+B13,partner_b,13,B01,True,data/augmented/B_dup04_speed.mp4,,,,speed
+B14,partner_b,14,B01,True,data/augmented/B_dup05_crop-brightness.mp4,,,,crop+brightness
+B15,partner_b,15,B01,True,data/augmented/B_dup06_crop-flip.mp4,,,,crop+flip
+B16,partner_b,16,B01,True,data/augmented/B_dup07_crop-speed.mp4,,,,crop+speed

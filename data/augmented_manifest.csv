@@ -1,0 +1,8 @@
+dup_index,source_pexels_id,local_path,augmentation_type,transform_params_json
+1,30288954,data/augmented/B_dup01_crop.mp4,crop,"{""crop_pct"": 0.1}"
+2,30288954,data/augmented/B_dup02_brightness.mp4,brightness,"{""brightness_alpha"": 1.2, ""brightness_beta"": 25}"
+3,30288954,data/augmented/B_dup03_flip.mp4,flip,"{""flip"": ""horizontal""}"
+4,30288954,data/augmented/B_dup04_speed.mp4,speed,"{""speed_factor"": 1.15}"
+5,30288954,data/augmented/B_dup05_crop-brightness.mp4,crop+brightness,"{""crop_pct"": 0.1, ""brightness_alpha"": 1.2, ""brightness_beta"": 25}"
+6,30288954,data/augmented/B_dup06_crop-flip.mp4,crop+flip,"{""crop_pct"": 0.1, ""flip"": ""horizontal""}"
+7,30288954,data/augmented/B_dup07_crop-speed.mp4,crop+speed,"{""crop_pct"": 0.1, ""speed_factor"": 1.15}"
