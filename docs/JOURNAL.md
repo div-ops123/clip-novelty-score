@@ -42,6 +42,31 @@ This is the part I got stuck on. This exact scenario — a partner submitting ne
 
 So instead of searching for it, I decided to construct it deliberately, with known ground truth: pull a small set of genuinely different public egocentric clips, then deliberately generate near-duplicate variants of a few of them myself (crop, brightness shift, slight speed change, flip). Assign synthetic partner IDs and synthetic arrival order. Because I made the duplicates myself, I know exactly which clips are supposed to score low novelty against which — so I can actually validate the score instead of just asserting it works.
 
+## Why CLIP, not a video-native model
+
+A video file isn't a tensor a model can consume — it's compressed bytes (a codec-encoded sequence of frames) that has to be decoded first. So no matter what encoder I pick, step one is always: decode the clip into individual frames, each just a plain pixel array.
+
+The real choice is what happens after that. Two options:
+
+1. Sample a handful of frames and run each through an **image** encoder (CLIP), then pool the per-frame vectors into one embedding for the clip.
+2. Feed a whole sequence of frames into a **video-native** encoder (VideoMAE, X-CLIP, etc.) that's trained to understand motion and temporal order, producing one embedding directly.
+
+I went with option 1. The reasoning: quota-farming, as I've scoped it, is fundamentally a *content/appearance* similarity question — "does this clip show substantially the same thing this partner already submitted?" — not a *motion* question. The near-duplicates I'm constructing to test this (crop, brightness shift, flip, slight speed change) all preserve nearly all of the original visual content; none of them are attacks that only show up in motion patterns. A frame-level appearance embedding catches exactly the signal this problem is about, without paying for temporal modeling I don't have a use for yet.
+
+CLIP specifically because it's pretrained on a huge corpus of image-text pairs and ships as an off-the-shelf general-purpose semantic image embedding — no training or fine-tuning required to get a space where visually/semantically similar frames land close together. That's exactly the property this score needs, and it's a well-established, easy-to-run choice.
+
+Stated assumption, explicitly: this assumes a farming partner is reusing visual content, not manufacturing novel-looking motion around otherwise-repeated footage. If that assumption turns out to be wrong — someone finds a way to make near-duplicate footage read as motion-diverse — that's a real blind spot in this design, not something the current approach happens to cover.
+
+## Frame sampling: fixed count, not fixed rate
+
+Clips vary in length (a few seconds to 30s), so sampling at a fixed rate (e.g. 1fps) would give long clips far more frames — and more say in the pooled embedding — than short ones, for no reason related to content. Sampling a fixed count (8) evenly across each clip's duration instead gives every clip the same representational budget regardless of length. 8 is a round default, not a tuned value — similar in spirit to the 15–20 warm-up threshold.
+
+## Per-clip novelty: max similarity, not centroid similarity
+
+Comparing a new clip to a partner's recent history means collapsing "similarity to each of the last W clips" into one number. Two ways to do that: similarity to the *centroid* (average) of those W clips, or the *max* similarity to any single one of them.
+
+I went with max. The reasoning: this system already has a smoothing layer built in — the rolling trend (mean novelty over the last N submissions, see "No hard duplicate/not-duplicate cutoff" above) — which is where the tolerance for an occasional one-off repeat should live, since that's exactly why I built it. Smoothing again at the per-clip level, via centroid, would stack a second layer of forgiveness on top of the first, and centroid similarity specifically risks diluting a real near-duplicate: a clone of one specific prior clip doesn't necessarily look close to the *average* of several visually unrelated prior clips. Max similarity asks the sharper, more direct question — "does this match any one specific thing I've submitted before" — which is what a near-duplicate actually is. The trend layer still absorbs a single low score without overreacting; it just does it once, at the right layer, instead of twice.
+
 ## What I'm actually shipping
 
 Not a pipeline — I want to be honest about that. It's:
