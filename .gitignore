@@ -225,3 +225,5 @@ data/augmented/*
 data/inspection/*
 !data/inspection/.gitkeep
 data/embeddings.npz
+
+docs/personal_notes.md

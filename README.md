@@ -17,6 +17,30 @@ Design reasoning and tradeoffs considered along the way: [`docs/JOURNAL.md`](doc
 - No access to DeepReach's real clip data, partner metadata, or submission cadence. Where a real-world detail is unknown (e.g. how often partners actually submit), the assumption used is stated explicitly in `docs/PROBLEM.md`, not presented as fact.
 - Not a claim that DeepReach lacks this — only that it's not addressed by the two mechanisms publicly described.
 
+## How to run (reproducing this from a fresh clone)
+
+**Setup**
+```
+pip install -r requirements.txt
+cp .env.example .env      # then fill in PEXELS_API_KEY (free key: pexels.com/api)
+```
+
+**Rebuild the dataset.** The manifests (`data/raw_manifest.csv`, `data/partition.json`, `data/augmented_manifest.csv`, `data/manifest.csv`) are committed and pin the exact clips/partner assignments/duplicate recipes used — only the actual video files are gitignored (too large to commit), so a fresh clone needs to re-fetch and re-generate them:
+```
+python scripts/download_pexels.py fetch   # re-downloads the pool videos raw_manifest.csv already lists
+python scripts/augment_duplicates.py      # deterministically regenerates Partner B's near-duplicate clips
+python scripts/build_manifest.py          # rebuilds manifest.csv (no-op if nothing changed)
+python scripts/verify_dataset.py          # sanity-checks the rebuilt dataset end-to-end
+```
+This reproduces the *same* dataset already committed. To build a fresh, differently-sampled dataset instead (new random pool from Pexels), run `python scripts/download_pexels.py discover` first, then `python scripts/partition_pool.py`, then the four commands above — see `docs/DATA_CONSTRUCTION.md` for what each phase does and why.
+
+**Run the scoring pipeline** (reads `data/manifest.csv`; safe to rerun any time):
+```
+python scripts/embed_clips.py       # CLIP-embeds every clip -> data/embeddings.npz (gitignored, derived)
+python scripts/compute_scores.py    # -> data/scores.csv
+python scripts/plot_validation.py   # -> data/plots/novelty_validation.png
+```
+
 ## What's here
 
 - `docs/PROBLEM.md` — precise problem definition and scope boundaries

@@ -36,6 +36,18 @@ So I split the design into two separate decisions:
 
 I don't actually know DeepReach's real submission cadence (batched uploads vs. continuous vs. daily syncs), so I'm stating that as an assumption rather than pretending I know their system.
 
+## compute_scores.py is batch, not incremental
+
+Worth being explicit about a gap between the design above and what I actually built. `compute_partner_scores` loops `for i in range(k)` over a partner's *entire* clip history every time it runs — starting at their first-ever clip, not from a saved checkpoint. Every novelty and trend value gets recomputed from scratch on every run, even ones that haven't changed since the last one.
+
+That's the right tradeoff for this prototype specifically: it's validating against a small, fixed, already-complete 34-clip dataset, not a live stream, and the whole computation is cheap numpy over 512-dim vectors — recomputing everything costs nothing. But it means this script does not implement the "incremental, per clip" production design described above. A real deployed version would score just the newest clip against its already-known last-10-vector window and update the trend, not replay a partner's whole history on every new submission. If I ever build that version, it's a different script with different state-handling, not a small edit to this one.
+
+## Limitation: novelty score doesn't identify which prior clip matched
+
+`novelty[i] = 1 - sims.max()` only keeps the *value* of the closest match in the comparison window — it never records *which* prior clip produced it. So `scores.csv` can say a clip scored 0.005 novelty (clearly matched something closely), but not which specific prior submission it matched. For the validation plot that's enough, since the point there is proving the pattern exists at all. For a real flagging workflow it isn't: a human investigating a flagged clip would want to know exactly which prior submission it's nearly identical to, not just that one exists somewhere in the last 10.
+
+Fix, if/when this needs to be actionable: track `sims.argmax()` alongside `sims.max()`, map that index back to `start + argmax` to get the matching clip's actual position, and look up its `clip_id` to add a `most_similar_to` column to `scores.csv`. Not implemented — noting it here as a known gap, not a silent one.
+
 ## The data problem
 
 This is the part I got stuck on. This exact scenario — a partner submitting near-duplicate footage over time — isn't something I could go find in a public dataset. It doesn't exist pre-labeled anywhere.

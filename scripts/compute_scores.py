@@ -42,6 +42,7 @@ def compute_partner_scores(vectors: np.ndarray) -> tuple[np.ndarray, np.ndarray]
         start = max(0, i - config.NOVELTY_COMPARISON_WINDOW)
         if start == i:
             continue
+        # since every vector is unit-length, dot product is a cosine similarity
         sims = vectors[start:i] @ vectors[i]
         novelty[i] = 1.0 - sims.max()
 
