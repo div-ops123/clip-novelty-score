@@ -224,3 +224,4 @@ data/augmented/*
 !data/augmented/.gitkeep
 data/inspection/*
 !data/inspection/.gitkeep
+data/embeddings.npz

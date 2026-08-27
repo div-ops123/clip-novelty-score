@@ -22,5 +22,6 @@ Design reasoning and tradeoffs considered along the way: [`docs/JOURNAL.md`](doc
 - `docs/PROBLEM.md` — precise problem definition and scope boundaries
 - `docs/JOURNAL.md` — the reasoning trail behind each design decision
 - `docs/DATA_CONSTRUCTION.md` — how the validation dataset (`data/manifest.csv`) was built, and why
-- `scripts/` — the dataset construction pipeline (download → partition → augment → build manifest → verify)
-- *(score computation and validation experiment — in progress)*
+- `scripts/` — the dataset construction pipeline (download → partition → augment → build manifest → verify) and the scoring pipeline (embed → compute scores → plot)
+- `data/scores.csv` — per-clip novelty score and rolling trend for every clip
+- `data/plots/novelty_validation.png` — the validation plot: high/flat novelty for Partner A's genuine submissions, a visible drop for Partner B once its planted near-duplicates begin
